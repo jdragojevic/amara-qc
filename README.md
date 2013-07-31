@@ -1,12 +1,12 @@
-## Simple script for converting Amara output dfxp to NF compliant dfxp.
+### Simple script for converting Amara output dfxp to NF compliant dfxp.
 
-##To install:
+###To install:
  * ```$ virtualenv env-qc ```
  * ``` source env-qc/bin/activate ```
  * ``` pip install -r requirements.txt ```
  * Update api_key.py with your Amara username and api key
 
-## ```usage: nf_output.py [-h] -i VIDEO_ID [-l LANGS] [-t]```
+### ```usage: python nf_output.py [-h] -i VIDEO_ID [-l LANGS] [-t]```
 
 ```
 
