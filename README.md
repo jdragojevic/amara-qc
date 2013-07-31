@@ -3,6 +3,8 @@
 #### To install: 
  * ```$ virtualenv env-qc ```
  * ```$ source env-qc/bin/activate ```
+ * ```$ git clone http://github.com/jdragojevic/amara-qc ```
+ * ```$ cd amara-qc ```
  * ```$ pip install -r requirements.txt ```
  * Update api_key.py with your Amara username and api key
 
