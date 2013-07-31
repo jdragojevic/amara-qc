@@ -6,6 +6,7 @@
  * ```$ git clone http://github.com/jdragojevic/amara-qc ```
  * ```$ cd amara-qc ```
  * ```$ pip install -r requirements.txt ```
+   * See http://lxml.de/installation.html if your lxml install fails, it has it's own requirements 
  * Update api_key.py with your Amara username and api key
 
 
