@@ -87,7 +87,8 @@ class NFOutput(object):
         root = etree.fromstring(subs)
         body = root[1]
         body.attrib["{http://www.w3.org/ns/ttml#styling}textAlign"] = 'center'
-        del body.attrib['region']
+        if 'region' in body.attrib:
+            del body.attrib['region']
         top = '$$'
         lang = root.get("{http://www.w3.org/XML/1998/namespace}lang")
 
