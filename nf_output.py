@@ -75,7 +75,10 @@ class NFOutput(object):
         fps_24 = ms/1.001001001
         return milliseconds_to_time_clock_exp(fps_24)
 
-    def process_subs(self, subs, timeshift=None):
+    def _remove_time_commas(self, time_str):
+        return time_str.replace(',', '.')
+
+    def process_subs(self, subs, lc, timeshift=None):
         """Update the dfxp subs to NF ttml.
 
            -- change $$ to set the region attribute on paragraph to top.
@@ -90,7 +93,6 @@ class NFOutput(object):
         if 'region' in body.attrib:
             del body.attrib['region']
         top = '$$'
-        lang = root.get("{http://www.w3.org/XML/1998/namespace}lang")
 
         for p in body.iter("{http://www.w3.org/ns/ttml}p"):
             #Remove blank lines
@@ -120,8 +122,12 @@ class NFOutput(object):
             if timeshift:
                 p.attrib['begin'] = self._convert_to_24fps(p.attrib['begin'])
                 p.attrib['end'] = self._convert_to_24fps(p.attrib['end'])
+
+            p.attrib['begin'] = self._remove_time_commas(p.attrib['begin'])
+            p.attrib['end'] = self._remove_time_commas(p.attrib['end'])
+
         #update the heading with the correct language
-        head = self.NF_HEAD.format(lang)
+        head = self.NF_HEAD.format(lc)
         return head, body
 
     
@@ -131,7 +137,7 @@ class NFOutput(object):
         req_url = ('/api2/partners/videos/%s/languages/%s/subtitles/'
                    '?format=dfxp'% (vid, lc))
         subs = self.api_get_request(req_url, output_type='content')
-        head, body = self.process_subs(subs, timeshift)
+        head, body = self.process_subs(subs, lc, timeshift)
         processed_body = etree.tostring(body, pretty_print=True)
         processed_subs =  u''.join([head, processed_body, self.NF_END])
         f = codecs.open(fn, 'w', encoding="utf-8")
